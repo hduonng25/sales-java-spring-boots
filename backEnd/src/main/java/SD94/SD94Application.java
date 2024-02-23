@@ -46,19 +46,19 @@ public class SD94Application implements CommandLineRunner {
 
     @Override
     public void run(String... args) throws Exception {
-        if(roleRepository.find("ADMIN") == null){
+        if (roleRepository.find("ADMIN") == null) {
             Role role = new Role();
             role.setRoleName("ADMIN");
             roleRepository.save(role);
         }
 
-        if(roleRepository.find("STAFF") == null){
+        if (roleRepository.find("STAFF") == null) {
             Role role = new Role();
             role.setRoleName("STAFF");
             roleRepository.save(role);
         }
 
-        if(roleRepository.find("CUSTOMER") == null){
+        if (roleRepository.find("CUSTOMER") == null) {
             Role role = new Role();
             role.setRoleName("CUSTOMER");
             roleRepository.save(role);
@@ -67,7 +67,7 @@ public class SD94Application implements CommandLineRunner {
         NhanVien nhanVien = null;
         nhanVien = nhanVienRepository.findByEmail("admin@gmail.com");
         if (nhanVien != null) {
-            String account = nhanVien.getEmail();
+            // String account = nhanVien.getEmail();
         } else {
             nhanVien = new NhanVien();
             nhanVien.setDiaChi("Hà Nội");
@@ -84,7 +84,7 @@ public class SD94Application implements CommandLineRunner {
             userRole.setStaff(nhanVien);
             userRoleSet.add(userRole);
 
-            NhanVien user = nhanVienService.createStaffV1(nhanVien, userRoleSet);
+            nhanVienService.createStaffV1(nhanVien, userRoleSet);
         }
     }
 }

@@ -1,24 +1,15 @@
 package SD94.controller.admin.khachHang;
 
-import SD94.entity.gioHang.GioHang;
 import SD94.entity.khachHang.DiaChi;
 import SD94.entity.khachHang.KhachHang;
-import SD94.entity.security.Role;
-import SD94.entity.security.UserRole;
 import SD94.repository.gioHang.GioHangRepository;
 import SD94.repository.khachHang.DiaChiRepository;
 import SD94.repository.khachHang.KhachHangRepository;
-import SD94.repository.role.RoleRepository;
-import SD94.repository.role.UserRoleRepository;
 import SD94.service.service.KhachHangService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.web.bind.annotation.*;
 
-import java.text.ParseException;
-import java.text.SimpleDateFormat;
 import java.util.*;
 
 @RestController
@@ -106,7 +97,7 @@ public class KhachHangController {
     }
 
     @PostMapping("/register")
-    public ResponseEntity Register(@RequestBody KhachHang create) {
+    public ResponseEntity<?> Register(@RequestBody KhachHang create) {
         return khachHangService.Register(create);
     }
 }

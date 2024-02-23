@@ -35,6 +35,7 @@ public class MailService {
     @Autowired
     NhanVienRepository nhanVienRepository;
 
+    @SuppressWarnings("null")
     public void sendOrderConfirmationEmail(String recipientEmail,
                                            HoaDon hoaDon) throws MessagingException {
         MimeMessage message = javaMailSender.createMimeMessage();
@@ -67,6 +68,7 @@ public class MailService {
 
         javaMailSender.send(message);
     }
+    @SuppressWarnings("null")
     public void guiMailKhiThaoTac(String recipientEmail,
                                            HoaDon hoaDon) throws MessagingException {
         MimeMessage message = javaMailSender.createMimeMessage();

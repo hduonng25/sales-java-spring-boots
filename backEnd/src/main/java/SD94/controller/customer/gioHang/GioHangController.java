@@ -52,13 +52,14 @@ public class GioHangController {
         for (GioHangChiTiet gioHangChiTiet : cartList) {
 
             SanPhamChiTiet sanPhamChiTiet = gioHangChiTiet.getSanPhamChiTiet();
-            if(sanPhamChiTiet.getSoLuong() == 0){
+            if (sanPhamChiTiet.getSoLuong() == 0) {
                 gioHangChiTiet.setSoLuong(0);
                 gioHangChiTiet.setThanhTien(BigDecimal.ZERO);
                 gioHangChiTietRepository.save(gioHangChiTiet);
             }
             GioHangChiTietDTO dto = new GioHangChiTietDTO();
-            String hinhAnhs = hinhAnhRepository.getAnhMacDinh(sanPhamChiTiet.getSanPham().getId(), sanPhamChiTiet.getMauSac().getId());
+            String hinhAnhs = hinhAnhRepository.getAnhMacDinh(sanPhamChiTiet.getSanPham().getId(),
+                    sanPhamChiTiet.getMauSac().getId());
             dto.setId(gioHangChiTiet.getId());
             dto.setSanPhamChiTiet(sanPhamChiTiet);
             dto.setSoLuong(gioHangChiTiet.getSoLuong());
@@ -71,6 +72,7 @@ public class GioHangController {
         return ResponseEntity.ok().body(gioHangChiTietDTOS);
     }
 
+    @SuppressWarnings("null")
     @PostMapping("/xoa/gioHangChiTiet")
     public List<GioHangChiTiet> deletedCartDetails(@RequestBody GioHangChiTiet request) {
         Long id_cart_details = request.getId();

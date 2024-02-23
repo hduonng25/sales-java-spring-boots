@@ -1,16 +1,13 @@
 
 package SD94.repository.hoaDon;
 
-import SD94.dto.thongKe.ThongKeAll;
 import SD94.entity.hoaDon.HoaDon;
 import org.springframework.data.jpa.repository.JpaRepository;
-import org.springframework.data.jpa.repository.Modifying;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.stereotype.Repository;
 
 import java.time.LocalDate;
 import java.util.List;
-import java.util.Objects;
 
 @Repository
 public interface HoaDonRepository extends JpaRepository<HoaDon, Long> {
@@ -29,13 +26,12 @@ public interface HoaDonRepository extends JpaRepository<HoaDon, Long> {
 
     @Query(value = "select * from hoa_don where loai_hoa_don = 1 and trang_thai_id = 6 order by id desc", nativeQuery = true)
     List<HoaDon> getDanhSachHoaDonCho();
+
     @Query(value = "SELECT * FROM hoa_don WHERE is_deleted = false and loai_hoa_don = ?  ORDER BY id DESC", nativeQuery = true)
     List<HoaDon> findHoaDonByLoai(int loai_hoa_don);
 
-    //Customer
+    // Customer
     @Query(value = "select * from hoa_don where khach_hang_id = ?1 and trang_thai_id = ?2", nativeQuery = true)
     List<HoaDon> getDSChoXacNhan(long khachHang_id, long trangThai_id);
 
 }
-
-

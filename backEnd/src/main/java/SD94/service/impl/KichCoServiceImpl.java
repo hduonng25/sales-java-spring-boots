@@ -20,13 +20,13 @@ public class KichCoServiceImpl implements KichCoService {
     @Autowired
     KichCoRepository kichCoRepository;
 
-
     @Override
     public List<KichCo> findAllProductSize() {
         List<KichCo> list = kichCoRepository.findAll();
         return list;
     }
 
+    @SuppressWarnings({ "unchecked", "rawtypes", "null" })
     @Override
     public ResponseEntity<KichCo> saveEdit(KichCo kichCoUpdate) {
         KichCo optionalkichCo = kichCoRepository.findByName(kichCoUpdate.getKichCo());
@@ -59,6 +59,7 @@ public class KichCoServiceImpl implements KichCoService {
         }
     }
 
+    @SuppressWarnings("null")
     @Override
     public ResponseEntity<List<KichCo>> deleteProductSize(Long id) {
         try {
@@ -78,6 +79,7 @@ public class KichCoServiceImpl implements KichCoService {
         }
     }
 
+    @SuppressWarnings({ "unchecked", "rawtypes" })
     @Override
     public ResponseEntity<KichCo> saveCreate(KichCo kichCoCreate) {
         KichCo optionalkichCo = kichCoRepository.findByName(kichCoCreate.getKichCo());

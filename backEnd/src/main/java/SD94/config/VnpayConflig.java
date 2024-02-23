@@ -62,6 +62,7 @@ public class VnpayConflig {
         return sb.toString();
     }
 
+    @SuppressWarnings({ "rawtypes", "unchecked" })
     public static int orderReturn(HttpServletRequest request) {
         Map fields = new HashMap();
         for (Enumeration params = request.getParameterNames(); params.hasMoreElements(); ) {

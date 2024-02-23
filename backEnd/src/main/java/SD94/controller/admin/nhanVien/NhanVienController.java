@@ -1,12 +1,10 @@
 package SD94.controller.admin.nhanVien;
 
-import SD94.entity.khuyenMai.KhuyenMai;
 import SD94.entity.nhanVien.NhanVien;
 import SD94.repository.nhanVien.NhanVienRepository;
 import SD94.service.service.NhanVienService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;

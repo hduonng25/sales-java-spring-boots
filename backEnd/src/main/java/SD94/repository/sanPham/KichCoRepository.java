@@ -7,10 +7,10 @@ import org.springframework.stereotype.Repository;
 
 import java.time.LocalDate;
 import java.util.List;
-import java.util.Optional;
 
 @Repository
 public interface KichCoRepository extends JpaRepository<KichCo, Long> {
+    @SuppressWarnings("null")
     @Query(value = "SELECT * FROM kich_co WHERE is_deleted = false ORDER BY id DESC", nativeQuery = true)
     List<KichCo> findAll();
 

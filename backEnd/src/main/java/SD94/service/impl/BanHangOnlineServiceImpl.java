@@ -101,14 +101,16 @@ public class BanHangOnlineServiceImpl implements BanHangOnlineService {
                     return ResponseEntity.badRequest().body(respone);
                 } else {
                     if (gioHangChiTiet.getSoLuong() > sanPhamChiTiet.getSoLuong()) {
-                        respone.put("err", "Số lượng của sản phẩm " + sanPhamChiTiet.getSanPham().getTenSanPham() + " không được vượt quá " + sanPhamChiTiet.getSoLuong());
+                        respone.put("err", "Số lượng của sản phẩm " + sanPhamChiTiet.getSanPham().getTenSanPham()
+                                + " không được vượt quá " + sanPhamChiTiet.getSoLuong());
                         return ResponseEntity.badRequest().body(respone);
                     }
                     HoaDonChiTiet hoaDonChiTiet = new HoaDonChiTiet();
                     hoaDonChiTiet.setSanPhamChiTiet(gioHangChiTiet.getSanPhamChiTiet());
                     hoaDonChiTiet.setSoLuong(gioHangChiTiet.getSoLuong());
                     hoaDonChiTiet.setDonGia(gioHangChiTiet.getDonGia());
-                    hoaDonChiTiet.setThanhTien(gioHangChiTiet.getThanhTien().setScale(0, RoundingMode.HALF_UP).intValue());
+                    hoaDonChiTiet
+                            .setThanhTien(gioHangChiTiet.getThanhTien().setScale(0, RoundingMode.HALF_UP).intValue());
                     hoaDonChiTiet.setHoaDon(hoaDon);
                     billDetailsRepository.save(hoaDonChiTiet);
                 }
@@ -132,7 +134,8 @@ public class BanHangOnlineServiceImpl implements BanHangOnlineService {
         for (HoaDonChiTiet hoaDonChiTiet : hoaDonChiTiets) {
             SanPhamChiTiet sanPhamChiTiet = hoaDonChiTiet.getSanPhamChiTiet();
             HoaDon hoaDon = hoaDonChiTiet.getHoaDon();
-            String anh_san_pham = hinhAnhRepository.getAnhMacDinh(sanPhamChiTiet.getSanPham().getId(), sanPhamChiTiet.getMauSac().getId());
+            String anh_san_pham = hinhAnhRepository.getAnhMacDinh(sanPhamChiTiet.getSanPham().getId(),
+                    sanPhamChiTiet.getMauSac().getId());
 
             HoaDonChiTietDTO hoaDonChiTietDTO = new HoaDonChiTietDTO();
             hoaDonChiTietDTO.setId(hoaDonChiTiet.getId());
@@ -205,9 +208,10 @@ public class BanHangOnlineServiceImpl implements BanHangOnlineService {
         }
     }
 
+    @SuppressWarnings("null")
     @Transactional
     @Override
-    public ResponseEntity datHang(HoaDonDTO dto) {
+    public ResponseEntity<?> datHang(HoaDonDTO dto) {
         HoaDon hoaDon = billRepository.findByID(dto.getId());
         KhachHang khachHang = khachHangRepository.findByEmail(dto.getEmail_user());
         GioHang gioHang = gioHangRepository.findbyCustomerID(khachHang.getId());
@@ -218,7 +222,8 @@ public class BanHangOnlineServiceImpl implements BanHangOnlineService {
         }
 
         for (GioHangChiTiet gioHangChiTiet : gioHangChiTiets) {
-            SanPhamChiTiet sanPhamChiTiet = sanPhamChiTietRepository.findByID(gioHangChiTiet.getSanPhamChiTiet().getId());
+            SanPhamChiTiet sanPhamChiTiet = sanPhamChiTietRepository
+                    .findByID(gioHangChiTiet.getSanPhamChiTiet().getId());
             sanPhamChiTiet.setSoLuong(sanPhamChiTiet.getSoLuong() - gioHangChiTiet.getSoLuong());
             if (sanPhamChiTiet.getSoLuong() <= 0) {
                 sanPhamChiTiet.setTrangThai(false);
@@ -254,7 +259,7 @@ public class BanHangOnlineServiceImpl implements BanHangOnlineService {
         hoaDon.setLoaiHoaDon(0);
         billRepository.save(hoaDon);
 
-        //Lưu lịch sử hóa đơn
+        // Lưu lịch sử hóa đơn
         LSHoaDon ls = new LSHoaDon();
         ls.setNguoiThaoTac(khachHang.getHoTen());
         ls.setHoaDon(hoaDon);

@@ -60,6 +60,7 @@ public class JwtUtils {
         return claimsResolver.apply(claims);
     }
 
+    @SuppressWarnings("deprecation")
     private Claims extractAllClaims(String token) {
         return Jwts.parser().setSigningKey(secretKey).parseClaimsJws(token).getBody();
     }
@@ -68,6 +69,7 @@ public class JwtUtils {
         return extractExpiration(token).before(new Date());
     }
 
+    @SuppressWarnings("unused")
     public String generateToken(UserDetails userDetails) {
         Map<String, Object> claims = null;
         UserDTO userDTO = null;
@@ -126,6 +128,7 @@ public class JwtUtils {
         return createToken(claims);
     }
 
+    @SuppressWarnings("deprecation")
     private String createToken(Map<String, Object> claims) {
         return Jwts.builder()
                 .setClaims(claims)

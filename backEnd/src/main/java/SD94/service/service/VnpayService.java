@@ -14,6 +14,7 @@ import java.util.*;
 
 @Service
 public class VnpayService {
+    @SuppressWarnings({ "rawtypes", "unchecked" })
     public ResponseEntity<VnpayDTO> createPayment(HoaDonDTO hoaDonDTO){
         String vnp_Version = "2.1.0";
         String vnp_Command = "pay";
@@ -81,6 +82,7 @@ public class VnpayService {
         return ResponseEntity.ok(dto);
     }
 
+    @SuppressWarnings({ "rawtypes", "unchecked" })
     public ResponseEntity<VnpayDTO> createPaymentMuaNgay(HoaDonDTO hoaDonDTO){
         String vnp_Version = "2.1.0";
         String vnp_Command = "pay";

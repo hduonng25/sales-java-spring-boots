@@ -20,13 +20,13 @@ public class LoaiSanPhamServiceImpl implements LoaiSanPhamService {
     @Autowired
     LoaiSanPhamRepository repository;
 
-
     @Override
     public List<LoaiSanPham> findAllProductLine() {
         List<LoaiSanPham> list = repository.findAll();
         return list;
     }
 
+    @SuppressWarnings({ "unchecked", "rawtypes", "null" })
     @Override
     public ResponseEntity<LoaiSanPham> saveEdit(LoaiSanPham loaiSanPhamUpdate) {
         LoaiSanPham optionaLoaiSanPham = repository.findByName(loaiSanPhamUpdate.getLoaiSanPham());
@@ -46,7 +46,7 @@ public class LoaiSanPhamServiceImpl implements LoaiSanPhamService {
 
         try {
             Optional<LoaiSanPham> optional = repository.findById(loaiSanPhamUpdate.getId());
-            if (optional.isPresent()){
+            if (optional.isPresent()) {
                 LoaiSanPham line = optional.get();
                 line.setLoaiSanPham(loaiSanPhamUpdate.getLoaiSanPham());
                 repository.save(line);
@@ -54,16 +54,17 @@ public class LoaiSanPhamServiceImpl implements LoaiSanPhamService {
             } else {
                 return ResponseEntity.notFound().build();
             }
-        } catch (Exception e){
+        } catch (Exception e) {
             return new ResponseEntity(new Message(e.getMessage(), TrayIcon.MessageType.ERROR), HttpStatus.BAD_REQUEST);
         }
     }
 
+    @SuppressWarnings("null")
     @Override
     public ResponseEntity<List<LoaiSanPham>> deleteProductLine(Long id) {
         try {
             Optional<LoaiSanPham> optional = repository.findById(id);
-            if (optional.isPresent()){
+            if (optional.isPresent()) {
                 LoaiSanPham line = optional.get();
                 line.setDeleted(true);
                 repository.save(line);
@@ -73,11 +74,12 @@ public class LoaiSanPhamServiceImpl implements LoaiSanPhamService {
             } else {
                 return ResponseEntity.notFound().build();
             }
-        } catch (Exception e){
+        } catch (Exception e) {
             return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(null);
         }
     }
 
+    @SuppressWarnings({ "unchecked", "rawtypes" })
     @Override
     public ResponseEntity<LoaiSanPham> saveCreate(LoaiSanPham loaiSanPhamCreate) {
         LoaiSanPham optionaLoaiSanPham = repository.findByName(loaiSanPhamCreate.getLoaiSanPham());
@@ -100,7 +102,7 @@ public class LoaiSanPhamServiceImpl implements LoaiSanPhamService {
             line.setLoaiSanPham(loaiSanPhamCreate.getLoaiSanPham());
             repository.save(line);
             return ResponseEntity.ok(line);
-        } catch (Exception e){
+        } catch (Exception e) {
             return new ResponseEntity(new Message(e.getMessage(), TrayIcon.MessageType.ERROR), HttpStatus.BAD_REQUEST);
         }
     }

@@ -50,6 +50,7 @@ public class SanPhamServiceImpl implements SanPhamService {
         return list;
     }
 
+    @SuppressWarnings({ "unchecked", "rawtypes", "null" })
     @Override
     public ResponseEntity<SanPham> saveEdit(SanPhamDTO sanPhamDTO) {
         String errorMessage;
@@ -79,6 +80,7 @@ public class SanPhamServiceImpl implements SanPhamService {
         }
     }
 
+    @SuppressWarnings("null")
     @Override
     public ResponseEntity<List<SanPham>> deleteProduct(Long id) {
         try {
@@ -127,15 +129,15 @@ public class SanPhamServiceImpl implements SanPhamService {
         return list;
     }
 
+    @SuppressWarnings({ "unchecked", "rawtypes" })
     @Override
     public ResponseEntity<?> taoSanPham(SanPhamDTO sanPhamDTO) {
         SanPham optionalSanPham = repository.checkLap(sanPhamDTO.getTenSanPham());
         String errorMessage;
-        Message errors;
 
         if (optionalSanPham != null) {
             errorMessage = "Trùng tên sản phẩm";
-            errors = new Message(errorMessage, TrayIcon.MessageType.ERROR);
+            new Message(errorMessage, TrayIcon.MessageType.ERROR);
             Map<String, String> responseMap = new HashMap<>();
             responseMap.put("message", errorMessage);
             return new ResponseEntity(responseMap, HttpStatus.BAD_REQUEST);
@@ -215,7 +217,8 @@ public class SanPhamServiceImpl implements SanPhamService {
             }
             return ResponseEntity.ok().body(sanPhamDTOList);
         } catch (Exception e) {
-            return ResponseEntity.badRequest().body(e.getMessage());        }
+            return ResponseEntity.badRequest().body(e.getMessage());
+        }
     }
 
 }

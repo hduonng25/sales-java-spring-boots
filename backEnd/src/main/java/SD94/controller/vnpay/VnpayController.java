@@ -2,7 +2,6 @@ package SD94.controller.vnpay;
 
 import SD94.config.VnpayConflig;
 import SD94.dto.HoaDonDTO;
-import SD94.dto.VnpayDTO;
 import SD94.entity.gioHang.GioHang;
 import SD94.entity.gioHang.GioHangChiTiet;
 import SD94.entity.hoaDon.HoaDon;
@@ -95,6 +94,7 @@ public class VnpayController {
         }
     }
 
+    @SuppressWarnings("null")
     @Transactional
     @RequestMapping("/payment/return")
     public ResponseEntity<String> returnPayment(HttpServletRequest request) {
@@ -170,6 +170,7 @@ public class VnpayController {
         }
     }
 
+    @SuppressWarnings("null")
     @Transactional
     @RequestMapping("/payment/MuaNgay/return")
     public ResponseEntity<String> returnPaymentMuaNgay(HttpServletRequest request) {

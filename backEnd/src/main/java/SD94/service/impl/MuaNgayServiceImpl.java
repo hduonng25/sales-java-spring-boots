@@ -150,7 +150,7 @@ public class MuaNgayServiceImpl implements MuaNgayService {
 
     @Transactional
     @Override
-    public ResponseEntity datHang(HoaDonDTO dto) {
+    public ResponseEntity<?> datHang(HoaDonDTO dto) {
         HoaDon hoaDon = hoaDonRepository.findByID(dto.getId());
         List<HoaDonChiTiet> hoaDonChiTiets = hoaDonChiTietRepository.findByIDBill(hoaDon.getId());
         for (HoaDonChiTiet hoaDonChiTiet : hoaDonChiTiets) {

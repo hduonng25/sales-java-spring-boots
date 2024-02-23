@@ -252,7 +252,7 @@ public class BanHangTaiQuayServiceImpl implements BanHangTaiQuayService {
     }
 
     @Override
-    public ResponseEntity huyDon(HoaDonDTO hoaDonDTO) {
+    public ResponseEntity<?> huyDon(HoaDonDTO hoaDonDTO) {
         HoaDon hoaDon = hoaDonRepository.findByID(hoaDonDTO.getId());
         TrangThai trangThai = trangThaiRepository.findByID(8L);
         hoaDon.setTrangThai(trangThai);
@@ -262,8 +262,9 @@ public class BanHangTaiQuayServiceImpl implements BanHangTaiQuayService {
         return ResponseEntity.status(HttpStatus.OK).body(response);
     }
 
+    @SuppressWarnings("null")
     @Override
-    public ResponseEntity thanhToan(HoaDonDTO hoaDonDTO) {
+    public ResponseEntity<?> thanhToan(HoaDonDTO hoaDonDTO) {
         HoaDon hoaDon = hoaDonRepository.findByID(hoaDonDTO.getId());
         List<HoaDonChiTiet> hoaDonChiTiets = hoaDonChiTietRepository.findByIDBill(hoaDonDTO.getId());
         Map<String, String> response = new HashMap<>();
@@ -311,6 +312,7 @@ public class BanHangTaiQuayServiceImpl implements BanHangTaiQuayService {
         }
     }
 
+    @SuppressWarnings("null")
     @Override
     public ResponseEntity<?> xoaHDCT(HoaDonChiTietDTO dto) {
         Optional<HoaDonChiTiet> optionalHoaDonChiTiet = hoaDonChiTietRepository.findById(dto.getId());

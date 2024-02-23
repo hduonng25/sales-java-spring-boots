@@ -1,11 +1,8 @@
 package SD94.service.impl;
 
 import SD94.controller.message.Message;
-import SD94.dto.HinhAnhDTO;
 import SD94.entity.gioHang.GioHangChiTiet;
 import SD94.entity.hoaDon.HoaDonChiTiet;
-import SD94.entity.sanPham.HinhAnh;
-import SD94.entity.sanPham.MauSac;
 import SD94.entity.sanPham.SanPham;
 import SD94.entity.sanPham.SanPhamChiTiet;
 import SD94.repository.gioHang.GioHangChiTietRepository;
@@ -54,6 +51,7 @@ public class SanPhamChiTietServiceImpl implements SanPhamChiTietService {
         return list;
     }
 
+    @SuppressWarnings({ "unchecked", "rawtypes", "null" })
     @Override
     public ResponseEntity<SanPhamChiTiet> saveEdit(SanPhamChiTiet sanPhamChiTietUpdate) {
         String errorMessage;
@@ -95,6 +93,7 @@ public class SanPhamChiTietServiceImpl implements SanPhamChiTietService {
         }
     }
 
+    @SuppressWarnings("null")
     public ResponseEntity<List<SanPhamChiTiet>> deleteProductDetails(Long id) {
         try {
             Optional<SanPhamChiTiet> optional = repository.findById(id);
@@ -124,10 +123,9 @@ public class SanPhamChiTietServiceImpl implements SanPhamChiTietService {
         }
     }
 
+    @SuppressWarnings({ "unchecked", "rawtypes" })
     @Override
     public ResponseEntity<SanPhamChiTiet> saveCreate(SanPhamChiTiet sanPhamChiTietCreate) {
-        String errorMessage;
-        Message errorResponse;
         try {
             SanPhamChiTiet sanPhamChiTiet = new SanPhamChiTiet();
 
@@ -150,8 +148,9 @@ public class SanPhamChiTietServiceImpl implements SanPhamChiTietService {
         return list;
     }
 
+    @SuppressWarnings("rawtypes")
     @Override
-    public ResponseEntity chinhSuaSoLuongSPCT(SanPhamChiTiet sanPhamChiTiet) {
+    public ResponseEntity<?> chinhSuaSoLuongSPCT(SanPhamChiTiet sanPhamChiTiet) {
         SanPhamChiTiet sanPhamChiTiets = repository.findByID(sanPhamChiTiet.getId());
         sanPhamChiTiets.setSoLuong(sanPhamChiTiet.getSoLuong());
         repository.save(sanPhamChiTiets);

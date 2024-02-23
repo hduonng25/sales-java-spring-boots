@@ -22,7 +22,6 @@ import SD94.repository.sanPham.MauSacRepository;
 import SD94.repository.sanPham.SanPhamChiTietRepository;
 import SD94.repository.sanPham.SanPhamRepository;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.transaction.annotation.Transactional;
@@ -31,7 +30,6 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import java.net.URI;
 import java.util.*;
 
 @RestController
@@ -72,10 +70,12 @@ public class ChinhSuaHoaDonController {
         Map<String, String> respone = new HashMap<>();
         MauSac mauSac = mauSacRepository.findByMaMauSac(dto.getMaMauSac());
         KichCo kichCo = kichCoRepository.findByKichCo(dto.getKichCoDaChon());
-        SanPhamChiTiet sanPhamChiTiet = sanPhamChiTietRepository.getSanPhamChiTiet(mauSac.getId(), kichCo.getId(), dto.getSan_pham_id());
+        SanPhamChiTiet sanPhamChiTiet = sanPhamChiTietRepository.getSanPhamChiTiet(mauSac.getId(), kichCo.getId(),
+                dto.getSan_pham_id());
         SanPham sanPham = sanPhamRepository.findByID(dto.getSan_pham_id());
         HoaDon hoaDon = hoaDonRepository.findByID(dto.getId_hoaDon());
-        Optional<HoaDonChiTiet> optionalHDCT = hoaDonChiTietRepository.checkHDCT(hoaDon.getId(), sanPhamChiTiet.getId());
+        Optional<HoaDonChiTiet> optionalHDCT = hoaDonChiTietRepository.checkHDCT(hoaDon.getId(),
+                sanPhamChiTiet.getId());
 
         int soLuongBanDau = sanPhamChiTiet.getSoLuong();
         int soLuongThem = dto.getSoLuong();
@@ -88,10 +88,14 @@ public class ChinhSuaHoaDonController {
                 int soLuongDuocThemTiep = sanPhamChiTiet.getSoLuong() - hoaDonChiTiet.getSoLuong();
                 int check = soLuongDuocThemTiep - dto.getSoLuong();
                 if (hoaDonChiTiet.getSoLuong() == sanPhamChiTiet.getSoLuong()) {
-                    respone.put("err", "Bạn đã có " + sanPhamChiTiet.getSoLuong() + " sản phẩm này trong giỏ hàng, bạn không thể thêm tiếp vì vượt quá số lượng của sản phẩm");
+                    respone.put("err", "Bạn đã có " + sanPhamChiTiet.getSoLuong()
+                            + " sản phẩm này trong giỏ hàng, bạn không thể thêm tiếp vì vượt quá số lượng của sản phẩm");
                     return ResponseEntity.badRequest().body(respone);
                 } else if (check < 0) {
-                    respone.put("err", "Bạn đã có " + hoaDonChiTiet.getSoLuong() + " sản phẩm này trong hóa đơn, bạn chỉ có thể thêm tiếp được tối đa " + soLuongDuocThemTiep + " sản phẩm này");
+                    respone.put("err",
+                            "Bạn đã có " + hoaDonChiTiet.getSoLuong()
+                                    + " sản phẩm này trong hóa đơn, bạn chỉ có thể thêm tiếp được tối đa "
+                                    + soLuongDuocThemTiep + " sản phẩm này");
                     return ResponseEntity.badRequest().body(respone);
                 } else {
                     int soLuongMoi = hoaDonChiTiet.getSoLuong() + dto.getSoLuong();
@@ -121,7 +125,8 @@ public class ChinhSuaHoaDonController {
                     LSHoaDon lichSuHoaDon = new LSHoaDon();
                     lichSuHoaDon.setNguoiThaoTac(nhanVien.getHoTen());
                     lichSuHoaDon.setHoaDon(hoaDon);
-                    lichSuHoaDon.setThaoTac("Thêm mới " + dto.getSoLuong() + " sản phẩm " + sanPhamChiTiet.getSanPham().getTenSanPham() + " vào hóa đơn");
+                    lichSuHoaDon.setThaoTac("Thêm mới " + dto.getSoLuong() + " sản phẩm "
+                            + sanPhamChiTiet.getSanPham().getTenSanPham() + " vào hóa đơn");
                     lsHoaDonRepository.save(lichSuHoaDon);
                 }
             } else {
@@ -156,7 +161,8 @@ public class ChinhSuaHoaDonController {
                 lichSuHoaDon.setNguoiThaoTac(nhanVien.getHoTen());
                 lichSuHoaDon.setNgayTao(new Date());
                 lichSuHoaDon.setHoaDon(hoaDon);
-                lichSuHoaDon.setThaoTac("Thêm mới " + dto.getSoLuong() + " sản phẩm " + sanPhamChiTiet.getSanPham().getTenSanPham() + " vào hóa đơn");
+                lichSuHoaDon.setThaoTac("Thêm mới " + dto.getSoLuong() + " sản phẩm "
+                        + sanPhamChiTiet.getSanPham().getTenSanPham() + " vào hóa đơn");
                 lsHoaDonRepository.save(lichSuHoaDon);
             }
 
@@ -164,6 +170,7 @@ public class ChinhSuaHoaDonController {
         }
     }
 
+    @SuppressWarnings("null")
     @PostMapping("/update-soluong")
     public ResponseEntity<?> updateSL(@RequestBody HoaDonChiTietDTO dto) {
         Map<String, String> respone = new HashMap<>();
@@ -172,18 +179,23 @@ public class ChinhSuaHoaDonController {
         SanPhamChiTiet sanPhamChiTiet = dto.getSanPhamChiTiet();
         int tongSoLuong = sanPhamChiTiet.getSoLuong() + hoaDonChiTiet.getSoLuong();
         int soLuongUpdate = dto.getSoLuongcapNhat();
-        int soLuongDuocThemTiep = (sanPhamChiTiet.getSoLuong() + hoaDonChiTiet.getSoLuong()) - hoaDonChiTiet.getSoLuong();
+        int soLuongDuocThemTiep = (sanPhamChiTiet.getSoLuong() + hoaDonChiTiet.getSoLuong())
+                - hoaDonChiTiet.getSoLuong();
         int thanhTienUpdate = (int) (soLuongUpdate * sanPhamChiTiet.getSanPham().getGia());
         int thanhTienMoiThem = thanhTienUpdate - hoaDonChiTiet.getThanhTien();
 
         if (tongSoLuong < soLuongUpdate) {
-            respone.put("err", "Bạn đã có " + hoaDonChiTiet.getSoLuong() + " sản phẩm này trong giỏ hàng, bạn không thể thêm tiếp vì vượt quá số lượng của sản phẩm");
+            respone.put("err", "Bạn đã có " + hoaDonChiTiet.getSoLuong()
+                    + " sản phẩm này trong giỏ hàng, bạn không thể thêm tiếp vì vượt quá số lượng của sản phẩm");
             return ResponseEntity.badRequest().body(respone);
         } else if (sanPhamChiTiet.isTrangThai() == false) {
             respone.put("err", "Sản phẩm đã ngừng kinh doanh ");
             return ResponseEntity.badRequest().body(respone);
         } else if (soLuongUpdate > tongSoLuong && soLuongUpdate > soLuongDuocThemTiep) {
-            respone.put("err", "Bạn đã có " + hoaDonChiTiet.getSoLuong() + " sản phẩm này trong giỏ hàng, bạn chỉ có thể thêm tiếp được tối đa " + soLuongDuocThemTiep + " sản phẩm này");
+            respone.put("err",
+                    "Bạn đã có " + hoaDonChiTiet.getSoLuong()
+                            + " sản phẩm này trong giỏ hàng, bạn chỉ có thể thêm tiếp được tối đa "
+                            + soLuongDuocThemTiep + " sản phẩm này");
             return ResponseEntity.badRequest().body(respone);
         } else {
 
@@ -192,7 +204,8 @@ public class ChinhSuaHoaDonController {
             hoaDonChiTiet.setThanhTien(thanhTienUpdate);
             hoaDonChiTietRepository.save(hoaDonChiTiet);
 
-            List<HoaDonChiTiet> hoaDonChiTiets = hoaDonChiTietRepository.findByIDBill(hoaDonChiTiet.getHoaDon().getId());
+            List<HoaDonChiTiet> hoaDonChiTiets = hoaDonChiTietRepository
+                    .findByIDBill(hoaDonChiTiet.getHoaDon().getId());
             HoaDon hoaDon = hoaDonChiTiet.getHoaDon();
             int totalAmount = 0;
             int total = hoaDon.getTongTienDonHang();
@@ -214,7 +227,9 @@ public class ChinhSuaHoaDonController {
             lichSuHoaDon.setNguoiThaoTac(nhanVien.getHoTen());
             lichSuHoaDon.setNgayTao(new Date());
             lichSuHoaDon.setHoaDon(hoaDon);
-            lichSuHoaDon.setThaoTac("Cập nhật số lượng của sản phẩm " + hoaDonChiTiet.getSanPhamChiTiet().getSanPham().getTenSanPham() + " từ " + soLuongBanDau + " thành " + soLuongUpdate);
+            lichSuHoaDon.setThaoTac(
+                    "Cập nhật số lượng của sản phẩm " + hoaDonChiTiet.getSanPhamChiTiet().getSanPham().getTenSanPham()
+                            + " từ " + soLuongBanDau + " thành " + soLuongUpdate);
             lsHoaDonRepository.save(lichSuHoaDon);
 
             if (sanPhamChiTiet.getSoLuong() <= 0) {
@@ -226,7 +241,8 @@ public class ChinhSuaHoaDonController {
                     hoaDonChiTietRepository.deleteById(ListHDCT.getId());
                 }
 
-                List<GioHangChiTiet> gioHangChiTiets = gioHangChiTietRepository.findCartBySPCTID(sanPhamChiTiet.getId());
+                List<GioHangChiTiet> gioHangChiTiets = gioHangChiTietRepository
+                        .findCartBySPCTID(sanPhamChiTiet.getId());
                 for (GioHangChiTiet gioHangChiTiet : gioHangChiTiets) {
                     gioHangChiTietRepository.deleteById(gioHangChiTiet.getId());
                 }
@@ -236,6 +252,7 @@ public class ChinhSuaHoaDonController {
         }
     }
 
+    @SuppressWarnings("null")
     @Transactional
     @PostMapping("/xoa-hdct")
     public ResponseEntity<?> xoahdct(@RequestBody HoaDonChiTietDTO dto) {

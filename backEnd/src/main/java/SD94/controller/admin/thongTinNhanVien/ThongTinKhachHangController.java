@@ -14,13 +14,13 @@ public class ThongTinKhachHangController {
     KhachHangRepository khachHangRepository;
 
     @GetMapping("/thongTin/{email}")
-    public ResponseEntity<?> getThongTinKhach(@PathVariable("email") String email){
+    public ResponseEntity<?> getThongTinKhach(@PathVariable("email") String email) {
         KhachHang khachHang = khachHangRepository.findByEmail(email);
         return ResponseEntity.ok().body(khachHang);
     }
 
     @PostMapping("/suaThongTinKhach")
-    public ResponseEntity<?> suaThongTinKhach(@RequestBody KhachHangDTO khachHangDTO){
+    public ResponseEntity<?> suaThongTinKhach(@RequestBody KhachHangDTO khachHangDTO) {
         KhachHang khachHang = khachHangRepository.findByEmail(khachHangDTO.getEmail());
         khachHang.setHoTen(khachHangDTO.getHoTen());
         khachHang.setSoDienThoai(khachHangDTO.getSoDienThoai());
@@ -29,7 +29,7 @@ public class ThongTinKhachHangController {
         khachHang.setDiaChi(khachHangDTO.getDiaChi());
         khachHangRepository.save(khachHang);
 
-        KhachHang result = khachHangRepository.findByEmail(khachHang.getEmail());
+        khachHangRepository.findByEmail(khachHang.getEmail());
         return ResponseEntity.ok().body(khachHang);
     }
 }

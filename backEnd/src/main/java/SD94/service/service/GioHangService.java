@@ -1,9 +1,7 @@
 package SD94.service.service;
 
 import SD94.dto.GioHangChiTietDTO;
-import SD94.entity.gioHang.GioHang;
 import SD94.entity.gioHang.GioHangChiTiet;
-import SD94.entity.khachHang.KhachHang;
 import SD94.entity.sanPham.SanPhamChiTiet;
 import SD94.repository.gioHang.GioHangChiTietRepository;
 import SD94.repository.gioHang.GioHangRepository;
@@ -15,7 +13,6 @@ import org.springframework.stereotype.Service;
 
 import java.math.BigDecimal;
 import java.util.HashMap;
-import java.util.List;
 import java.util.Map;
 
 @Service

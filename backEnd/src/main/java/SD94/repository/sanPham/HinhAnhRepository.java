@@ -16,7 +16,8 @@ public interface HinhAnhRepository extends JpaRepository<HinhAnh, Long> {
 
     @Query(value = "select * from hinh_anh where id_product = ? and anh_mac_dinh = true limit 1;", nativeQuery = true)
     HinhAnh getFirstAnhByIdSanPham(@Param("idsp")Long idsp);
-
+    
+    @SuppressWarnings("null")
     @Query(value = "SELECT * FROM hinh_anh WHERE is_deleted = false ORDER BY id DESC", nativeQuery = true)
     List<HinhAnh> findAll();
 

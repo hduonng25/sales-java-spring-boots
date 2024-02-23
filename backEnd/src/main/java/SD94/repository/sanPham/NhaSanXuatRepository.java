@@ -7,10 +7,10 @@ import org.springframework.stereotype.Repository;
 
 import java.time.LocalDate;
 import java.util.List;
-import java.util.Optional;
 
 @Repository
 public interface NhaSanXuatRepository extends JpaRepository<NhaSanXuat, Long> {
+
     @Query(value = "SELECT * FROM nha_san_xuat WHERE is_deleted = false ORDER BY id DESC", nativeQuery = true)
     List<NhaSanXuat> findAllnha_san_xuat();
 

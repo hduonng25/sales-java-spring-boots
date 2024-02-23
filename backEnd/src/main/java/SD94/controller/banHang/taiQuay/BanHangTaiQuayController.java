@@ -57,7 +57,8 @@ public class BanHangTaiQuayController {
         for (HoaDonChiTiet hoaDonChiTiet : hoaDonChiTiets) {
             SanPhamChiTiet sanPhamChiTiet = hoaDonChiTiet.getSanPhamChiTiet();
             HoaDon hoaDon = hoaDonChiTiet.getHoaDon();
-            String anh_san_pham = hinhAnhRepository.getAnhMacDinh(sanPhamChiTiet.getSanPham().getId(), sanPhamChiTiet.getMauSac().getId());
+            String anh_san_pham = hinhAnhRepository.getAnhMacDinh(sanPhamChiTiet.getSanPham().getId(),
+                    sanPhamChiTiet.getMauSac().getId());
 
             HoaDonChiTietDTO hoaDonChiTietDTO = new HoaDonChiTietDTO();
             hoaDonChiTietDTO.setId(hoaDonChiTiet.getId());
@@ -125,15 +126,14 @@ public class BanHangTaiQuayController {
     }
 
     @PostMapping("/huyDon")
-    public ResponseEntity huyDon(@RequestBody HoaDonDTO hoaDonDTO) {
+    public ResponseEntity<?> huyDon(@RequestBody HoaDonDTO hoaDonDTO) {
         return banHangTaiQuayService.huyDon(hoaDonDTO);
     }
 
     @PostMapping("/thanhToan")
-    public ResponseEntity thanhToan(@RequestBody HoaDonDTO hoaDonDTO) {
+    public ResponseEntity<?> thanhToan(@RequestBody HoaDonDTO hoaDonDTO) {
         return banHangTaiQuayService.thanhToan(hoaDonDTO);
     }
-
 
     @PostMapping("/inHoaDon")
     public ResponseEntity<?> inHoaDon(@RequestBody HoaDonDTO hoaDonDTO) {

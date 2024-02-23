@@ -35,6 +35,7 @@ public class InHoaDonService {
     @Autowired
     HoaDonChiTietRepository hoaDonChiTietRepository;
 
+    @SuppressWarnings("null")
     public ResponseEntity<byte[]> generatePdf(HoaDonDTO hoaDonDTO) {
         List<HoaDonChiTiet> hoaDonChiTiets = hoaDonChiTietRepository.findByIDBill(hoaDonDTO.getId());
         Optional<HoaDon> optHoaDon = hoaDonRepository.findById(hoaDonDTO.getId());
@@ -242,6 +243,7 @@ public class InHoaDonService {
         return ResponseEntity.notFound().build();
     }
 
+    @SuppressWarnings("null")
     public ResponseEntity<byte[]> HdDaThanhToanPdf(HoaDonDTO hoaDonDTO) {
         List<HoaDonChiTiet> hoaDonChiTiets = hoaDonChiTietRepository.findByIDBill(hoaDonDTO.getId());
         Optional<HoaDon> optHoaDon = hoaDonRepository.findById(hoaDonDTO.getId());
@@ -382,7 +384,7 @@ public class InHoaDonService {
                 soDienthoai = hoaDon.getSDTNguoiNhan();
             }
 
-            DecimalFormat currencyFormatter = new DecimalFormat("###,### ₫", new DecimalFormatSymbols(Locale.getDefault()));
+            new DecimalFormat("###,### ₫", new DecimalFormatSymbols(Locale.getDefault()));
             SimpleDateFormat dateFormat = new SimpleDateFormat("dd/MM/yyyy");
             String formattedNgayTao = dateFormat.format(ngayTao);
 
@@ -447,6 +449,7 @@ public class InHoaDonService {
         return ResponseEntity.notFound().build();
     }
 
+    @SuppressWarnings("null")
     public ResponseEntity<byte[]> hoaDonDatHangPdf(Long hoaDonId) {
         List<HoaDonChiTiet> hoaDonChiTiets = hoaDonChiTietRepository.findByIDBill(hoaDonId);
         Optional<HoaDon> optHoaDon = hoaDonRepository.findById(hoaDonId);

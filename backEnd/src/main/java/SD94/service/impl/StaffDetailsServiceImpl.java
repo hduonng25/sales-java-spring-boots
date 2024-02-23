@@ -6,8 +6,6 @@ import SD94.entity.nhanVien.NhanVien;
 import SD94.repository.khachHang.KhachHangRepository;
 import SD94.repository.nhanVien.NhanVienRepository;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.HttpStatus;
-import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;

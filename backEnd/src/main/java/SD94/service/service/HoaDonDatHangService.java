@@ -26,7 +26,7 @@ public interface HoaDonDatHangService {
 
     List<HoaDon> searchDateBill(long trang_thai_id, String searchDate);
 
-    ResponseEntity createTimeLine(String thaoTac, long trangThai_id, long hoaDon_id, String nguoiThaoTac);
+    ResponseEntity<?> createTimeLine(String thaoTac, long trangThai_id, long hoaDon_id, String nguoiThaoTac);
 
     ResponseEntity<?> CTChoXacNhan(long id_hoa_don);
 

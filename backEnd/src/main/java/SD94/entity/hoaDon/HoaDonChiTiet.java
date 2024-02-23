@@ -4,6 +4,7 @@ import SD94.entity.Base;
 import SD94.entity.sanPham.SanPhamChiTiet;
 import lombok.AllArgsConstructor;
 import lombok.Data;
+import lombok.EqualsAndHashCode;
 import lombok.NoArgsConstructor;
 import org.springframework.data.jpa.domain.support.AuditingEntityListener;
 
@@ -11,6 +12,7 @@ import java.io.Serializable;
 import javax.persistence.*;
 
 @Entity
+@EqualsAndHashCode(callSuper = false)
 @Data
 @AllArgsConstructor
 @NoArgsConstructor

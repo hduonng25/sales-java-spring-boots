@@ -1,7 +1,6 @@
 package SD94.controller.security;
 
 import SD94.config.JwtUtils;
-import SD94.dto.UserDTO;
 import SD94.entity.khachHang.KhachHang;
 import SD94.entity.nhanVien.NhanVien;
 import SD94.helper.UserNotFoundException;

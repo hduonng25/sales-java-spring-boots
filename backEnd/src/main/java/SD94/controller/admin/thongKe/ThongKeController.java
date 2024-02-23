@@ -1,6 +1,5 @@
 package SD94.controller.admin.thongKe;
 
-import SD94.dto.thongKe.ThongKeTheoNam;
 import SD94.repository.thongKe.ThongKeRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;

@@ -7,10 +7,10 @@ import org.springframework.stereotype.Repository;
 
 import java.time.LocalDate;
 import java.util.List;
-import java.util.Optional;
 
 @Repository
 public interface LoaiSanPhamRepository extends JpaRepository<LoaiSanPham, Long> {
+    @SuppressWarnings("null")
     @Query(value = "SELECT * FROM loai_san_pham WHERE is_deleted = false ORDER BY id DESC", nativeQuery = true)
     List<LoaiSanPham> findAll();
 

@@ -16,9 +16,7 @@ import SD94.repository.sanPham.MauSacRepository;
 import SD94.repository.sanPham.SanPhamChiTietRepository;
 import SD94.repository.sanPham.SanPhamRepository;
 import SD94.validator.GioHangValidate;
-import SD94.validator.SanPhamValidate;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -63,13 +61,15 @@ public class AddToCartController {
         } else {
             MauSac mauSac = mauSacRepository.findByMaMauSac(dto.getMaMauSac());
             KichCo kichCo = kichCoRepository.findByKichCo(dto.getKichCo());
-            SanPhamChiTiet sanPhamChiTiet = sanPhamChiTietRepository.getSanPhamChiTiet(mauSac.getId(), kichCo.getId(), dto.getSan_pham_id());
+            SanPhamChiTiet sanPhamChiTiet = sanPhamChiTietRepository.getSanPhamChiTiet(mauSac.getId(), kichCo.getId(),
+                    dto.getSan_pham_id());
             if (sanPhamChiTiet.isTrangThai() == true) {
 
                 KhachHang khachHang = khachHangRepository.findByEmail(dto.getEmail());
                 SanPham sanPham = sanPhamRepository.findByID(dto.getSan_pham_id());
                 GioHang gioHang = gioHangRepository.findbyCustomerID(khachHang.getId());
-                Optional<GioHangChiTiet> optionalGioHangChiTiet = gioHangChiTietRepository.checkGioHangChiTiet(sanPhamChiTiet.getId(), gioHang.getId());
+                Optional<GioHangChiTiet> optionalGioHangChiTiet = gioHangChiTietRepository
+                        .checkGioHangChiTiet(sanPhamChiTiet.getId(), gioHang.getId());
 
                 if (optionalGioHangChiTiet.isPresent()) {
                     GioHangChiTiet gioHangChiTiet = optionalGioHangChiTiet.get();
@@ -77,11 +77,15 @@ public class AddToCartController {
                     int check = soLuongDuocThemTiep - dto.getSoLuong();
                     if (gioHangChiTiet.getSoLuong() == sanPhamChiTiet.getSoLuong()) {
                         Map<String, String> respone = new HashMap<>();
-                        respone.put("err", "Bạn đã có " + sanPhamChiTiet.getSoLuong() + " sản phẩm này trong giỏ hàng, bạn không thể thêm tiếp vì vượt quá số lượng của sản phẩm");
+                        respone.put("err", "Bạn đã có " + sanPhamChiTiet.getSoLuong()
+                                + " sản phẩm này trong giỏ hàng, bạn không thể thêm tiếp vì vượt quá số lượng của sản phẩm");
                         return ResponseEntity.badRequest().body(respone);
                     } else if (check < 0) {
                         Map<String, String> respone = new HashMap<>();
-                        respone.put("err", "Bạn đã có " + gioHangChiTiet.getSoLuong() + " sản phẩm này trong giỏ hàng, bạn chỉ có thể thêm tiếp được tối đa " + soLuongDuocThemTiep + " sản phẩm này");
+                        respone.put("err",
+                                "Bạn đã có " + gioHangChiTiet.getSoLuong()
+                                        + " sản phẩm này trong giỏ hàng, bạn chỉ có thể thêm tiếp được tối đa "
+                                        + soLuongDuocThemTiep + " sản phẩm này");
                         return ResponseEntity.badRequest().body(respone);
                     } else {
                         int soLuongMoi = gioHangChiTiet.getSoLuong() + dto.getSoLuong();

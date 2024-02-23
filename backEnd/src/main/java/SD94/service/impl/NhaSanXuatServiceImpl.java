@@ -26,6 +26,7 @@ public class NhaSanXuatServiceImpl implements NhaSanXuatService {
         return nhaSanXuats;
     }
 
+    @SuppressWarnings({ "unchecked", "rawtypes", "null" })
     @Override
     public ResponseEntity<NhaSanXuat> saveEdit(NhaSanXuat nhaSanXuatUpdate) {
         NhaSanXuat optionalNhaSanXuat = producerRepository.findByName(nhaSanXuatUpdate.getName());
@@ -45,7 +46,7 @@ public class NhaSanXuatServiceImpl implements NhaSanXuatService {
 
         try {
             Optional<NhaSanXuat> optionalProducer = producerRepository.findById(nhaSanXuatUpdate.getId());
-            if (optionalProducer.isPresent()){
+            if (optionalProducer.isPresent()) {
                 NhaSanXuat nhaSanXuat = optionalProducer.get();
                 nhaSanXuat.setName(nhaSanXuatUpdate.getName());
                 producerRepository.save(nhaSanXuat);
@@ -53,16 +54,17 @@ public class NhaSanXuatServiceImpl implements NhaSanXuatService {
             } else {
                 return ResponseEntity.notFound().build();
             }
-        } catch (Exception e){
+        } catch (Exception e) {
             return new ResponseEntity(new Message(e.getMessage(), TrayIcon.MessageType.ERROR), HttpStatus.BAD_REQUEST);
         }
     }
 
+    @SuppressWarnings("null")
     @Override
     public ResponseEntity<List<NhaSanXuat>> deleteProducer(Long id) {
         try {
             Optional<NhaSanXuat> optionalProducer = producerRepository.findById(id);
-            if (optionalProducer.isPresent()){
+            if (optionalProducer.isPresent()) {
                 NhaSanXuat nhaSanXuat = optionalProducer.get();
                 nhaSanXuat.setDeleted(true);
                 producerRepository.save(nhaSanXuat);
@@ -71,11 +73,12 @@ public class NhaSanXuatServiceImpl implements NhaSanXuatService {
             } else {
                 return ResponseEntity.notFound().build();
             }
-        } catch (Exception e){
+        } catch (Exception e) {
             return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(null);
         }
     }
 
+    @SuppressWarnings({ "unchecked", "rawtypes" })
     @Override
     public ResponseEntity<NhaSanXuat> saveCreate(NhaSanXuat nhaSanXuatCreate) {
         NhaSanXuat optionalNhaSanXuat = producerRepository.findByName(nhaSanXuatCreate.getName());
@@ -98,7 +101,7 @@ public class NhaSanXuatServiceImpl implements NhaSanXuatService {
             nhaSanXuat.setName(nhaSanXuatCreate.getName());
             producerRepository.save(nhaSanXuat);
             return ResponseEntity.ok(nhaSanXuat);
-        } catch (Exception e){
+        } catch (Exception e) {
             return new ResponseEntity(new Message(e.getMessage(), TrayIcon.MessageType.ERROR), HttpStatus.BAD_REQUEST);
         }
 

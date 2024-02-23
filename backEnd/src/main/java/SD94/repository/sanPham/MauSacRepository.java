@@ -7,10 +7,10 @@ import org.springframework.stereotype.Repository;
 
 import java.time.LocalDate;
 import java.util.List;
-import java.util.Optional;
 
 @Repository
 public interface MauSacRepository extends JpaRepository<MauSac, Long> {
+    @SuppressWarnings("null")
     @Query(value = "select * from mau_sac where is_deleted =false ORDER BY id DESC", nativeQuery = true)
     List<MauSac> findAll();
 

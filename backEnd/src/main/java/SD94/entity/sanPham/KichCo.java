@@ -2,6 +2,7 @@ package SD94.entity.sanPham;
 import SD94.entity.Base;
 import lombok.AllArgsConstructor;
 import lombok.Data;
+import lombok.EqualsAndHashCode;
 import lombok.NoArgsConstructor;
 import org.springframework.data.jpa.domain.support.AuditingEntityListener;
 
@@ -9,6 +10,7 @@ import javax.persistence.*;
 import java.io.Serializable;
 
 @Entity
+@EqualsAndHashCode(callSuper = false)
 @Data
 @AllArgsConstructor
 @NoArgsConstructor

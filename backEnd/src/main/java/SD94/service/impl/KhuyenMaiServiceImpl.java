@@ -52,6 +52,7 @@ public class KhuyenMaiServiceImpl implements KhuyenMaiService {
     }
 
     //Lưu thông tin chỉnh sửa
+    @SuppressWarnings({ "unchecked", "rawtypes", "null" })
     @Override
     public ResponseEntity<KhuyenMai> saveEdit(KhuyenMai khuyenMaiUpdate) {
         String errorMessage;
@@ -121,6 +122,7 @@ public class KhuyenMaiServiceImpl implements KhuyenMaiService {
     }
 
     //Xóa
+    @SuppressWarnings("null")
     @Override
     public ResponseEntity<List<KhuyenMai>> deletekhuyenMai(Long id) {
         try {
@@ -141,6 +143,7 @@ public class KhuyenMaiServiceImpl implements KhuyenMaiService {
     }
 
     //Thêm mới
+    @SuppressWarnings({ "unchecked", "rawtypes" })
     @Override
     public ResponseEntity<KhuyenMai> saveCreate(KhuyenMai khuyenMaiCreate) {
         Optional<KhuyenMai> optionalDiscount = khuyenMaiRepository.findByName(khuyenMaiCreate.getTenKhuyenMai());

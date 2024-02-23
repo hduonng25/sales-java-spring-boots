@@ -34,7 +34,6 @@ public class KhachHangServceImpl implements KhachHangService {
 
     BCryptPasswordEncoder passwordEncoder = new BCryptPasswordEncoder();
 
-
     @Autowired
     RoleRepository roleRepository;
 
@@ -47,20 +46,24 @@ public class KhachHangServceImpl implements KhachHangService {
         return khachHangs;
     }
 
+    @SuppressWarnings({ "unchecked", "rawtypes" })
     @Override
     public ResponseEntity<KhachHang> createCustomer(KhachHang khachHangCreate) {
         String errorMessage;
         Message errprResponse;
 
-        Optional<KhachHang> checkEmail = Optional.ofNullable(customerRepository.findByEmail(khachHangCreate.getEmail()));
+        Optional<KhachHang> checkEmail = Optional
+                .ofNullable(customerRepository.findByEmail(khachHangCreate.getEmail()));
         if (checkEmail.isPresent()) {
             errorMessage = "trùng email khách hàng";
             errprResponse = new Message(errorMessage, TrayIcon.MessageType.ERROR);
             return new ResponseEntity(errprResponse, HttpStatus.BAD_REQUEST);
         }
 
-        if (khachHangCreate.getHoTen() == null || khachHangCreate.getSoDienThoai() == null || khachHangCreate.getEmail() == null
-                || khachHangCreate.getNgaySinh() == null || khachHangCreate.getDiaChi() == null || khachHangCreate.getMatKhau() == null) {
+        if (khachHangCreate.getHoTen() == null || khachHangCreate.getSoDienThoai() == null
+                || khachHangCreate.getEmail() == null
+                || khachHangCreate.getNgaySinh() == null || khachHangCreate.getDiaChi() == null
+                || khachHangCreate.getMatKhau() == null) {
             errorMessage = "Nhập thông tin đầy đủ";
             errprResponse = new Message(errorMessage, TrayIcon.MessageType.ERROR);
             return new ResponseEntity(errprResponse, HttpStatus.BAD_REQUEST);
@@ -73,10 +76,10 @@ public class KhachHangServceImpl implements KhachHangService {
             return new ResponseEntity(errprResponse, HttpStatus.BAD_REQUEST);
         }
 
-        //Email
+        // Email
         String email = khachHangCreate.getEmail();
-        String emailRegex = "^[A-Za-z0-9+_.-]+@.+";//kiểm tra định dạng email
-        Pattern pattern = Pattern.compile(emailRegex);//tạo Pattern để kiểm tra email
+        String emailRegex = "^[A-Za-z0-9+_.-]+@.+";// kiểm tra định dạng email
+        Pattern pattern = Pattern.compile(emailRegex);// tạo Pattern để kiểm tra email
         Matcher matcher = pattern.matcher(email);
         if (!matcher.matches()) {
             errorMessage = "Địa chỉ Eamil không đúng định dạng";
@@ -112,12 +115,14 @@ public class KhachHangServceImpl implements KhachHangService {
         }
     }
 
+    @SuppressWarnings({ "unchecked", "rawtypes", "null" })
     @Override
     public ResponseEntity<KhachHang> editCustomer(KhachHang khachHangEdit) {
         String errorMessage;
         Message errprResponse;
 
-        if (khachHangEdit.getHoTen() == null || khachHangEdit.getSoDienThoai() == null || khachHangEdit.getEmail() == null
+        if (khachHangEdit.getHoTen() == null || khachHangEdit.getSoDienThoai() == null
+                || khachHangEdit.getEmail() == null
                 || khachHangEdit.getNgaySinh() == null || khachHangEdit.getDiaChi() == null) {
             errorMessage = "Nhập thông tin đầy đủ";
             errprResponse = new Message(errorMessage, TrayIcon.MessageType.ERROR);
@@ -125,17 +130,17 @@ public class KhachHangServceImpl implements KhachHangService {
         }
 
         // SDT
-//        String phoneNumber = customerCreate.getPhoneNumber();
+        // String phoneNumber = customerCreate.getPhoneNumber();
         if (khachHangEdit.getSoDienThoai().length() != 10) {
             errorMessage = "Số điện thoại phải đủ 10 số";
             errprResponse = new Message(errorMessage, TrayIcon.MessageType.ERROR);
             return new ResponseEntity(errprResponse, HttpStatus.BAD_REQUEST);
         }
 
-        //Email
+        // Email
         String email = khachHangEdit.getEmail();
-        String emailRegex = "^[A-Za-z0-9+_.-]+@.+";//kiểm tra định dạng email
-        Pattern pattern = Pattern.compile(emailRegex);//tạo Pattern để kiểm tra email
+        String emailRegex = "^[A-Za-z0-9+_.-]+@.+";// kiểm tra định dạng email
+        Pattern pattern = Pattern.compile(emailRegex);// tạo Pattern để kiểm tra email
         Matcher matcher = pattern.matcher(email);
         if (!matcher.matches()) {
             errorMessage = "Địa chỉ Eamil không đúng định dạng";
@@ -143,7 +148,7 @@ public class KhachHangServceImpl implements KhachHangService {
             return new ResponseEntity(errprResponse, HttpStatus.BAD_REQUEST);
         }
 
-        //Ngày sinh
+        // Ngày sinh
         Date dateBirth = khachHangEdit.getNgaySinh();
         Date dateC = new Date();
         if (dateBirth.after(dateC)) {
@@ -161,7 +166,7 @@ public class KhachHangServceImpl implements KhachHangService {
                 khachHang.setEmail(khachHangEdit.getEmail());
                 khachHang.setNgaySinh(khachHangEdit.getNgaySinh());
                 khachHang.setDiaChi(khachHangEdit.getDiaChi());
-//                khachHang.setMatKhau(khachHangEdit.getMatKhau());
+                // khachHang.setMatKhau(khachHangEdit.getMatKhau());
                 customerRepository.save(khachHang);
                 return ResponseEntity.ok(khachHang);
             } else {
@@ -173,6 +178,7 @@ public class KhachHangServceImpl implements KhachHangService {
         }
     }
 
+    @SuppressWarnings("null")
     @Override
     public ResponseEntity<List<KhachHang>> deleteCustomer(Long id) {
         try {
@@ -205,8 +211,9 @@ public class KhachHangServceImpl implements KhachHangService {
         return khachHangList;
     }
 
+    @SuppressWarnings("deprecation")
     @Override
-    public ResponseEntity Register(KhachHang create) {
+    public ResponseEntity<?> Register(KhachHang create) {
         KhachHang khachHangCheckEmail = customerRepository.findByEmail(create.getEmail());
         KhachHang khachHangCheckSDT = customerRepository.findBySDT(create.getSoDienThoai());
         if (khachHangCheckEmail != null) {

@@ -49,6 +49,7 @@ public class NhanVienServiceImpl implements NhanVienService {
         return staffs;
     }
 
+    @SuppressWarnings({ "unchecked", "rawtypes" })
     @Override
     public ResponseEntity<NhanVien> createStaff(NhanVien staffCreate) {
         String errorMessage;
@@ -136,6 +137,7 @@ public class NhanVienServiceImpl implements NhanVienService {
 
 
     // StaffUpdate
+    @SuppressWarnings({ "unchecked", "rawtypes", "null" })
     @Override
     public ResponseEntity<NhanVien> editStaff(NhanVien staffEdit) {
         String errorMessage;
@@ -200,6 +202,7 @@ public class NhanVienServiceImpl implements NhanVienService {
 
     }
 
+    @SuppressWarnings("null")
     @Override
     public ResponseEntity<List<NhanVien>> deleteStaff(Long id) {
         try {
@@ -233,6 +236,7 @@ public class NhanVienServiceImpl implements NhanVienService {
     }
 
 
+    @SuppressWarnings("null")
     @Override
     public NhanVien createStaffV1(NhanVien user, Set<UserRole> userRoles) throws Exception {
         NhanVien local = staffRepository.findByEmail(user.getEmail());
@@ -254,6 +258,7 @@ public class NhanVienServiceImpl implements NhanVienService {
 
     }
 
+    @SuppressWarnings("null")
     @Override
     public void deleteUser(Long userId) {
         staffRepository.deleteById(userId);

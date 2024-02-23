@@ -3,11 +3,8 @@ package SD94.service.service;
 import SD94.dto.GioHangDTO;
 import SD94.dto.HoaDonDTO;
 import SD94.entity.hoaDon.HoaDon;
-import SD94.entity.hoaDon.HoaDonChiTiet;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
-
-import java.util.List;
 
 @Service
 public interface BanHangOnlineService {
@@ -21,6 +18,6 @@ public interface BanHangOnlineService {
 
     ResponseEntity<?> addDiscount(HoaDonDTO hoaDonDTO);
 
-    ResponseEntity datHang(HoaDonDTO dto);
+    ResponseEntity<?> datHang(HoaDonDTO dto);
 
 }

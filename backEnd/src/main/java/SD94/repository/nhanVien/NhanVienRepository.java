@@ -7,7 +7,6 @@ import org.springframework.stereotype.Repository;
 
 import java.time.LocalDate;
 import java.util.List;
-import java.util.Optional;
 
 @Repository
 public interface NhanVienRepository extends JpaRepository<NhanVien, Long> {
@@ -24,8 +23,7 @@ public interface NhanVienRepository extends JpaRepository<NhanVien, Long> {
     @Query(value = "select * from nhan_vien where is_deleted = false and (so_dien_thoai LIKE %?1% OR ho_ten LIKE %?1% OR email LIKE %?1%);", nativeQuery = true)
     List<NhanVien> findStaffAll(String input);
 
-
-    @Query(value =  "select * from nhan_vien where is_deleted = false and date(ngay_sinh) = ?", nativeQuery = true)
+    @Query(value = "select * from nhan_vien where is_deleted = false and date(ngay_sinh) = ?", nativeQuery = true)
     List<NhanVien> findStaffDate(LocalDate ngaySinh);
 
     @Query(value = "select * from nhan_vien where email = ?", nativeQuery = true)

@@ -5,7 +5,6 @@ import SD94.entity.nhanVien.NhanVien;
 import SD94.repository.nhanVien.NhanVienRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
-import org.springframework.stereotype.Repository;
 import org.springframework.web.bind.annotation.*;
 
 @RestController
@@ -29,7 +28,7 @@ public class ThongTinNhanVienController {
         nhanVien.setNgaySinh(nhanVienDTO.getDateOfBirth());
         nhanVienRepository.save(nhanVien);
 
-        NhanVien result = nhanVienRepository.findByEmail(nhanVien.getEmail());
+        nhanVienRepository.findByEmail(nhanVien.getEmail());
         return ResponseEntity.ok().body(nhanVien);
     }
 }

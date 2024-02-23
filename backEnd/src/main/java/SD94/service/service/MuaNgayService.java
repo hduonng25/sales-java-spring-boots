@@ -15,6 +15,6 @@ public interface MuaNgayService {
 
     ResponseEntity<?> addDiscount(HoaDonDTO hoaDonDTO);
 
-    ResponseEntity datHang(HoaDonDTO dto);
+    ResponseEntity<?> datHang(HoaDonDTO dto);
 
 }

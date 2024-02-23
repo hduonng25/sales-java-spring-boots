@@ -15,7 +15,7 @@ public interface BanHangTaiQuayService {
 
     ResponseEntity<?> taoHoaDon(HoaDonDTO hoaDonDTO);
 
-    ResponseEntity themSanPham(SanPhamDTO dto);
+    ResponseEntity<?> themSanPham(SanPhamDTO dto);
 
     List<HoaDon> xoaHoaDon(HoaDonDTO hoaDonDTO);
 
@@ -23,9 +23,9 @@ public interface BanHangTaiQuayService {
 
     ResponseEntity<?> addKhachHang(KhachHangDTO dto);
 
-    ResponseEntity huyDon(HoaDonDTO hoaDonDTO);
+    ResponseEntity<?> huyDon(HoaDonDTO hoaDonDTO);
 
-    ResponseEntity thanhToan(HoaDonDTO hoaDonDTO);
+    ResponseEntity<?> thanhToan(HoaDonDTO hoaDonDTO);
 
     ResponseEntity<?> xoaHDCT(HoaDonChiTietDTO dto);
 }

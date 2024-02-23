@@ -1,22 +1,12 @@
 package SD94.controller.admin.hoaDon.datHang;
 
-import SD94.dto.ChiTietHoaDonDTO;
-import SD94.entity.hoaDon.HoaDon;
-import SD94.entity.hoaDon.HoaDonChiTiet;
-import SD94.entity.hoaDon.LichSuHoaDon;
-import SD94.entity.hoaDon.TrangThai;
 import SD94.repository.hoaDon.HoaDonChiTietRepository;
 import SD94.repository.hoaDon.HoaDonRepository;
-import SD94.repository.hoaDon.LichSuHoaDonRepository;
 import SD94.repository.hoaDon.TrangThaiRepository;
 import SD94.service.service.HoaDonDatHangService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
-
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
 
 @RestController
 @CrossOrigin("*")
@@ -33,7 +23,7 @@ public class ChiTietHoaDonController {
     @Autowired
     HoaDonChiTietRepository hoaDonChiTietRepository;
 
-    //Trả ra hoá đơn theo ID, danh sách hoá đn, lịch s của hoá ơn đó
+    // Trả ra hoá đơn theo ID, danh sách hoá đn, lịch s của hoá ơn đó
     @GetMapping("/choXacNhan/id={id}")
     public ResponseEntity<?> CTChoXacNhan(@PathVariable("id") long hoa_don_id) {
         return hoaDonDatHangService.CTChoXacNhan(hoa_don_id);
@@ -64,8 +54,7 @@ public class ChiTietHoaDonController {
         return hoaDonDatHangService.CTXacNhanDaGiao(hoa_don_id);
     }
 
-
-    //Trả ra hoá đơn theo ID, danh sách hoá đn, lịch s của hoá ơn đó
+    // Trả ra hoá đơn theo ID, danh sách hoá đn, lịch s của hoá ơn đó
     @GetMapping("/taiQuay/id={id}")
     public ResponseEntity<?> TaiQuay(@PathVariable("id") long hoa_don_id) {
         return hoaDonDatHangService.TaiQuay(hoa_don_id);

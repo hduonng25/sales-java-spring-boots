@@ -78,6 +78,7 @@ public class SanPhamController {
         return sanPhamService.deleteProduct(id);
     }
 
+    @SuppressWarnings("null")
     @DeleteMapping("/xoa-san-pham-chi-tiet/{id}")
     public void deleteProductDetails(@RequestBody SanPhamChiTiet sanPhamChiTiet) {
         sanPhamRepository.deleteById(sanPhamChiTiet.getId());

@@ -26,6 +26,7 @@ public class MauSacServiceImpl implements MauSacService {
         return mauSacs;
     }
 
+    @SuppressWarnings({ "unchecked", "rawtypes", "null" })
     @Override
     public ResponseEntity<MauSac> saveEdit(MauSac mauSacUpdate) {
         String errorMessage;
@@ -39,7 +40,7 @@ public class MauSacServiceImpl implements MauSacService {
 
         try {
             Optional<MauSac> optionalProductColor = repository.findById(mauSacUpdate.getId());
-            if (optionalProductColor.isPresent()){
+            if (optionalProductColor.isPresent()) {
                 MauSac mauSac = optionalProductColor.get();
                 mauSac.setMaMauSac(mauSacUpdate.getMaMauSac());
                 mauSac.setTenMauSac(mauSacUpdate.getTenMauSac());
@@ -48,16 +49,17 @@ public class MauSacServiceImpl implements MauSacService {
             } else {
                 return ResponseEntity.notFound().build();
             }
-        } catch (Exception e){
+        } catch (Exception e) {
             return new ResponseEntity(new Message(e.getMessage(), TrayIcon.MessageType.ERROR), HttpStatus.BAD_REQUEST);
         }
     }
 
+    @SuppressWarnings("null")
     @Override
     public ResponseEntity<List<MauSac>> deleteProductColor(Long id) {
         try {
             Optional<MauSac> optionalProductColor = repository.findById(id);
-            if (optionalProductColor.isPresent()){
+            if (optionalProductColor.isPresent()) {
                 MauSac mauSac = optionalProductColor.get();
                 mauSac.setDeleted(true);
                 repository.save(mauSac);
@@ -67,11 +69,12 @@ public class MauSacServiceImpl implements MauSacService {
             } else {
                 return ResponseEntity.notFound().build();
             }
-        } catch (Exception e){
+        } catch (Exception e) {
             return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(null);
         }
     }
 
+    @SuppressWarnings({ "unchecked", "rawtypes" })
     @Override
     public ResponseEntity<MauSac> saveCreate(MauSac productMauSac) {
         MauSac optionalMauSac = repository.findByName(productMauSac.getTenMauSac(), productMauSac.getMaMauSac());
@@ -101,7 +104,7 @@ public class MauSacServiceImpl implements MauSacService {
             mauSac.setMaMauSac(productMauSac.getMaMauSac());
             repository.save(mauSac);
             return ResponseEntity.ok(mauSac);
-        } catch (Exception e){
+        } catch (Exception e) {
             return new ResponseEntity(new Message(e.getMessage(), TrayIcon.MessageType.ERROR), HttpStatus.BAD_REQUEST);
         }
     }

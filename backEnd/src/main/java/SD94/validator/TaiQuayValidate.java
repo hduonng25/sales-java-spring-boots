@@ -46,6 +46,7 @@ public class TaiQuayValidate {
         }
     }
 
+    @SuppressWarnings("null")
     public static void checkSoLuongDaChon(Integer soLuongDaChon, Integer soLuongDaCo, Map<String, String> errors) {
         if (soLuongDaChon == null) {
             errors.put(GioHangValidate.ErrorCode.Null_soLuongDaChon.name(), "Số lượng không được để trống");

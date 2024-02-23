@@ -56,7 +56,7 @@ public class SanPhamChiTietController {
 
     Long spct_id;
 
-    //Hien thi
+    // Hien thi
     @GetMapping("/danhSach")
     public ResponseEntity<List<SanPhamChiTiet>> getColor() {
         List<SanPhamChiTiet> list = sanPhamChiTietRepository.findAll();
@@ -67,19 +67,12 @@ public class SanPhamChiTietController {
     public ResponseEntity<List<SanPhamChiTiet>> getProduct(@RequestParam("san_pham_id") Long id) {
         List<SanPhamChiTiet> product = sanPhamChiTietRepository.findSpctByIdSp(id);
         for (SanPhamChiTiet sanPhamChiTiet : product) {
-            HinhAnh hinhAnh = hinhAnhRepository.findAnhMacDinh(sanPhamChiTiet.getSanPham().getId(), sanPhamChiTiet.getMauSac().getId());
+            HinhAnh hinhAnh = hinhAnhRepository.findAnhMacDinh(sanPhamChiTiet.getSanPham().getId(),
+                    sanPhamChiTiet.getMauSac().getId());
             if (hinhAnh == null) {
                 sanPhamChiTiet.setTrangThai(false);
                 sanPhamChiTietRepository.save(sanPhamChiTiet);
             }
-
-//            if (sanPhamChiTiet.getSoLuong() == 0) {
-//                sanPhamChiTiet.setTrangThai(false);
-//                sanPhamChiTietRepository.save(sanPhamChiTiet);
-//            } else {
-//                sanPhamChiTiet.setTrangThai(true);
-//                sanPhamChiTietRepository.save(sanPhamChiTiet);
-//            }
         }
         return ResponseEntity.ok().body(product);
     }
@@ -96,19 +89,19 @@ public class SanPhamChiTietController {
         return ResponseEntity.ok().body(product);
     }
 
-    //Hien thi theo id
+    // Hien thi theo id
     @GetMapping("/chinhSua/{id}")
     public SanPhamChiTiet editProductDetails(@PathVariable("id") Long id) {
         return sanPhamChiTietRepository.findByID(id);
     }
 
-    //Sửa và lưu
+    // Sửa và lưu
     @PutMapping("/luuChinhSua")
     public ResponseEntity<SanPhamChiTiet> saveUpdate(@RequestBody SanPhamChiTiet sanPhamChiTiet) {
         return sanPhamChiTietService.saveEdit(sanPhamChiTiet);
     }
 
-    //Xóa
+    // Xóa
     @DeleteMapping("/xoa/{id}")
     public ResponseEntity<List<SanPhamChiTiet>> deleteProductDetails(@PathVariable("id") Long id) {
         return sanPhamChiTietService.deleteProductDetails(id);
@@ -124,7 +117,7 @@ public class SanPhamChiTietController {
         return sanPhamChiTiet;
     }
 
-    //Tìm kiếm
+    // Tìm kiếm
     @RequestMapping("/timKiem={search}")
     public List<SanPhamChiTiet> searchAll(@PathVariable("search") String search) {
         return sanPhamChiTietService.searchAllProductDetails(search);
@@ -142,7 +135,7 @@ public class SanPhamChiTietController {
     }
 
     @PutMapping("/ChinhSuaSoLuongSPCT")
-    public ResponseEntity chinhSuaSoLuongSPCT(@RequestBody SanPhamChiTiet sanPhamChiTiet) {
+    public ResponseEntity<?> chinhSuaSoLuongSPCT(@RequestBody SanPhamChiTiet sanPhamChiTiet) {
         return sanPhamChiTietService.chinhSuaSoLuongSPCT(sanPhamChiTiet);
     }
 
@@ -167,14 +160,16 @@ public class SanPhamChiTietController {
     @GetMapping("/hienThiAnh/{id}")
     public ResponseEntity<?> hienThiAnh(@PathVariable("id") long id_spct) {
         SanPhamChiTiet sanPhamChiTiet = sanPhamChiTietRepository.findByID(id_spct);
-        List<HinhAnh> hinhAnhs = hinhAnhRepository.getHinhAnhs(sanPhamChiTiet.getSanPham().getId(), sanPhamChiTiet.getMauSac().getId());
+        List<HinhAnh> hinhAnhs = hinhAnhRepository.getHinhAnhs(sanPhamChiTiet.getSanPham().getId(),
+                sanPhamChiTiet.getMauSac().getId());
         return ResponseEntity.ok().body(hinhAnhs);
     }
 
     @PutMapping("/setAnhMacDinh")
     public ResponseEntity<?> setAnhMacDinh(@RequestBody HinhAnhDTO hinhAnhDTO) {
         SanPhamChiTiet sanPhamChiTiet = sanPhamChiTietRepository.findByID(hinhAnhDTO.getId_spct());
-        HinhAnh check = hinhAnhRepository.findAnhMacDinh(sanPhamChiTiet.getSanPham().getId(), sanPhamChiTiet.getMauSac().getId());
+        HinhAnh check = hinhAnhRepository.findAnhMacDinh(sanPhamChiTiet.getSanPham().getId(),
+                sanPhamChiTiet.getMauSac().getId());
 
         if (check != null) {
             check.setAnhMacDinh(false);
@@ -236,7 +231,8 @@ public class SanPhamChiTietController {
                 hoaDonChiTietRepository.save(hoaDonChiTiet);
             }
         } else if (dto.isStatus() == true) {
-            List<GioHangChiTiet> gioHangChiTiets = gioHangChiTietRepository.findCartBySPCTIDDeleteTrue(sanPhamChiTiet.getId());
+            List<GioHangChiTiet> gioHangChiTiets = gioHangChiTietRepository
+                    .findCartBySPCTIDDeleteTrue(sanPhamChiTiet.getId());
             for (GioHangChiTiet gioHangChiTiet : gioHangChiTiets) {
                 gioHangChiTiet.setDeleted(false);
                 gioHangChiTietRepository.save(gioHangChiTiet);

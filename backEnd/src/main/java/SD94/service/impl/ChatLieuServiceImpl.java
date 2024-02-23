@@ -26,6 +26,7 @@ public class ChatLieuServiceImpl implements ChatLieuService {
         return list;
     }
 
+    @SuppressWarnings({ "rawtypes", "unchecked", "null" })
     @Override
     public ResponseEntity<ChatLieu> saveEdit(ChatLieu chatLieuUpdate) {
         ChatLieu optionalChatLieu = repository.findByName(chatLieuUpdate.getChatLieu());
@@ -61,6 +62,7 @@ public class ChatLieuServiceImpl implements ChatLieuService {
     @Override
     public ResponseEntity<List<ChatLieu>> deleteProductMaterial(Long id) {
         try {
+            @SuppressWarnings("null")
             Optional<ChatLieu> optional = repository.findById(id);
             if (optional.isPresent()) {
                 ChatLieu chatLieu = optional.get();
@@ -77,6 +79,7 @@ public class ChatLieuServiceImpl implements ChatLieuService {
         }
     }
 
+    @SuppressWarnings({ "unchecked", "rawtypes" })
     @Override
     public ResponseEntity<?> saveCreate(ChatLieu chatLieuCreate) {
         ChatLieu optionalChatLieu = repository.findByName(chatLieuCreate.getChatLieu());

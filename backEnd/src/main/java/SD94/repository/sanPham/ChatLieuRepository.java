@@ -7,10 +7,10 @@ import org.springframework.stereotype.Repository;
 
 import java.time.LocalDate;
 import java.util.List;
-import java.util.Optional;
 
 @Repository
 public interface ChatLieuRepository extends JpaRepository<ChatLieu, Long> {
+    @SuppressWarnings("null")
     @Query(value = "SELECT * FROM chat_lieu WHERE is_deleted = false ORDER BY id DESC", nativeQuery = true)
     List<ChatLieu> findAll();
 
